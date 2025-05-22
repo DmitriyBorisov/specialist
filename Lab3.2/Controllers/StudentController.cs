@@ -6,82 +6,23 @@ namespace Lab3._2.Controllers
 {
     public class StudentController : Controller
     {
-        // GET: StudentController
+        [Route("/")]
         public ActionResult Index()
         {
             return View(Student.All);
         }
 
-        // GET: StudentController/Details/5
-        public ActionResult Details(int id)
+        [Route("age/{minAge:int}/{maxAge:int}")]
+        public ActionResult ByAge(int minAge, int maxAge)
         {
-            Student student = Student.All.Where(s => s.Id == id).SingleOrDefault();
-            if (student == null) return NotFound();
-            return View(student);
+            return View("Index", Student.All.Where(s => s.Age >= minAge && s.Age <= maxAge));
         }
 
-        // GET: StudentController/Create
-        public ActionResult Create()
+        [Route("search/{search}")]
+        public ActionResult Search(string search)
         {
-            return View();
+            return View("Index", Student.All.Where(s => s.Name.Contains(search, StringComparison.OrdinalIgnoreCase)));
         }
-
-        // POST: StudentController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Student sudent)
-        {
-            try
-            {
-                Student.All.Add(sudent);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: StudentController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: StudentController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: StudentController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: StudentController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+      
     }
 }
