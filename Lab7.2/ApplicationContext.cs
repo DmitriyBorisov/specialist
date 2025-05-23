@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Lab7._1.Models
+namespace Lab7._2
 {
     public class ApplicationContext: DbContext
     {
@@ -19,7 +19,7 @@ namespace Lab7._1.Models
             string connectionString = Program.config.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(connectionString);
         }
-        public DbSet<Lab7._1.Models.Student> Student { get; set; } = default!;
+        public DbSet<Lab7._2.Student> Student { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

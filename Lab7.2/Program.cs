@@ -1,6 +1,4 @@
-using Lab7._1.Models;
-
-namespace Lab7._1
+namespace Lab7._2
 {
     public class Program
     {
@@ -14,26 +12,23 @@ namespace Lab7._1
 
             // Add services to the container.
             builder.Services.AddSqlServer<ApplicationContext>(config.GetConnectionString("DefaultConnection"));
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
             }
+
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.MapStaticAssets();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Student}/{action=Index}/{id?}")
-                .WithStaticAssets();
-
+            app.MapRazorPages()
+               .WithStaticAssets();
 
             app.Run();
         }
